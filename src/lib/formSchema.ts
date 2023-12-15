@@ -21,4 +21,8 @@ export const formSchema = z.object({
   nationality: z.string().min(1, "Nationality is required"),
   email: z.string().email("Please enter a valid email address"),
   phoneNumber: z.string().regex(phoneRegex, "Please enter a valid phone number"),
+  departureDate: z.string()
+    .regex(dateRegex, 'Launch date must be in the format yyyy-mm-dd')
+    .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date')
+    .transform((val) => new Date(val)),
 });
