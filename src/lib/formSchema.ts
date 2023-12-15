@@ -35,5 +35,8 @@ export const formSchema = z.object({
   martianLodgings: z.string().min(1, "Martian Lodgings is required"),
   additionalNotes: z.string().optional(),
   healthDeclaration: z.boolean().optional().default(false).refine(val => val, "You must Affirm to continue"),
-  emergencyContactName: z.string().min(1, "Emergency contact name is required"),
+  emergencyContactName: z.string().min(3, "Name of Emergency Contact is required"),
+  emergencyContactEmail: z.string().email("Please enter a valid email address"),
+  emergencyContactPhone: z.string().regex(phoneRegex, "Please enter a valid phone number"),
+  medicalConditions: z.string().optional(),
 });
