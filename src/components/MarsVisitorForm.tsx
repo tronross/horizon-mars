@@ -26,7 +26,7 @@ const stages = [
   {
     id: 'Stage 3',
     name: 'Health and Safety',
-    formFields: []
+    formFields: ['healthDeclaration']
   },
   {
     id: 'Stage 4',
@@ -76,6 +76,7 @@ export default function MarsVisitorForm() {
 
   const next = async () => {
     const formFields = stages[currentStage].formFields;
+    console.log(formFields)
     const isValid = await trigger(formFields as FieldName[], { shouldFocus: true });
 
     if (isValid) {
@@ -177,22 +178,27 @@ export default function MarsVisitorForm() {
             <label htmlFor="additionalNotes">Additional Notes</label>
             <textarea
               {...register("additionalNotes")}
-              className="px-2 py-4 rounded text-black"  />
+              className="px-2 py-4 rounded text-black" />
           </>
         )}
         {currentStage === 2 && (
-           <>
-          <h2 className="text-2xl font-bold text-center">Health and Safety</h2>
-          <label htmlFor="Health Declaration">Health Declaration</label>
-          <p className="font-bold text-center">I hereby declare that I have been approved for spaceflight by a board-certified Doctor. I will provide the physicians pre-flight report upon confirmation of my trip.</p>
-          {/* <fieldset>
-            <span className="flex items-center">
-              <input type="radio" id="healthDeclaration" value="true" {...register("healthDeclaration")} >
-                Affirmative</input>
+          <>
+            <h2 className="text-2xl font-bold text-center">Health and Safety</h2>
+            <label htmlFor="Health Declaration">Health Declaration</label>
+            <p className="font-bold">I hereby declare that I have been approved for spaceflight by a board-certified Doctor. I will provide the physicians pre-flight report upon confirmation of my trip.</p>
+
+            <span className="flex-row align-end">
+              <label htmlFor="healthDeclaration">
+                <input 
+                  type="checkbox"
+                  className="px-2 py-2 rounded text-black"
+                  {...register("healthDeclaration")}
+                />  Affirmative</label>
+              {errors.healthDeclaration && errors.healthDeclaration.message && <p className="text-red-500">{errors.healthDeclaration.message}</p>}
             </span>
-          </fieldset> */}
+
           </>
-          )}
+        )}
         {currentStage < 4 &&
           <span className="inline-flex">
             <button
@@ -211,7 +217,7 @@ export default function MarsVisitorForm() {
             </button>
           </span>
         }
-        {currentStage === 3 && (
+        {currentStage === 2 && (
           <>
             <button type="submit" className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded">Submit</button>
           </>
