@@ -33,6 +33,6 @@ export const formSchema = z.object({
     .transform((val) => new Date(val)),
   departureHub: z.string().min(1, "Departure hub is required"),
   martianLodgings: z.string().min(1, "Martian Lodgings is required"),
-  additionalNotes: z.string(),
-  healthDeclaration: z.boolean(),
+  additionalNotes: z.string().optional(),
+  healthDeclaration: z.boolean().optional().default(false).refine(val => val, "You must Affirm to continue"),
 });
