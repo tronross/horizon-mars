@@ -3,7 +3,7 @@
 /////////////////////////////
 
 import { useState } from "react";
-import { useForm, SubmitHandler, type FieldValues } from "react-hook-form";
+import { useForm, SubmitHandler, type FieldValues, FieldName } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -15,22 +15,22 @@ const stages = [
   {
     id: 'Stage 1',
     name: 'Personal Information',
-    fields: ['firstName', 'lastName', 'birthDate', 'nationality', 'email', 'phoneNumber']
+    formFields: ['firstName', 'lastName', 'birthDate', 'nationality', 'email', 'phoneNumber']
   },
   {
     id: 'Stage 2',
     name: 'Travel Preferences',
-    fields: []
+    formFields: []
   },
   {
     id: 'Stage 3',
     name: 'Health and Safety',
-    fields: []
+    formFields: []
   },
   {
     id: 'Stage 4',
     name: 'Success Message',
-    fields: []
+    formFields: []
   },
 ]
 
@@ -44,6 +44,7 @@ export default function MarsVisitorForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    trigger,
     getValues
   } = useForm<Inputs>({
     resolver: zodResolver(formSchema),
@@ -54,7 +55,20 @@ export default function MarsVisitorForm() {
     reset();
   }
 
+  type FieldName = keyof Inputs
 
+  const back = () => {
+    if (currentStage > 0) {
+      setPreviousStage(currentStage)
+      setCurrentStage(stage => stage - 1)
+    }
+  }
+
+  const next = async () => {
+    const formFields = stages[currentStage].formFields;
+    const errorState = await trigger(formFields as FieldName[], { shouldFocus: true });
+
+  }
 
   return (
     <section className="flex flex-col items-center justify-center max-h-screen py-12">
@@ -110,13 +124,20 @@ export default function MarsVisitorForm() {
             {errors.phoneNumber && <p className="text-red-500">{errors.phoneNumber.message}</p>}
           </>
         )}
-        {currentStage < 2 &&
+        {currentStage < 4 &&
           <span className="inline-flex">
-            <button className="flex-grow bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
-              Prev
+            <button
+              type="button"
+              disabled={(currentStage < 1)}
+              onClick={back}
+              className="flex-grow bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
+              Back
             </button>
-            {currentStage < 1}
-            <button className="flex-grow bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-r">
+
+            <button
+              type="button"
+              onClick={next}
+              className="flex-grow bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-r">
               Next
             </button>
           </span>
