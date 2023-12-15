@@ -21,7 +21,7 @@ const stages = [
   {
     id: 'Stage 2',
     name: 'Travel Preferences',
-    formFields: []
+    formFields: ['departureDate', 'returnDate', 'departureHub', 'martianLodgings', 'Additional Notes' ]
   },
   {
     id: 'Stage 3',
@@ -136,6 +136,13 @@ export default function MarsVisitorForm() {
         {currentStage === 1 && (
           <>
             <h2 className="text-2xl font-bold text-center">Travel Preferences</h2>
+            <label htmlFor="departureDate">Launch Date</label>
+            <input
+              {...register("departureDate")}
+              type="date"
+              className="px-2 py-2 rounded text-black" />
+            {errors.departureDate && <p className="text-red-500">{errors.departureDate.message}</p>}
+
           </>
         )}
         {currentStage < 4 &&
