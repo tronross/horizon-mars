@@ -21,7 +21,7 @@ const stages = [
   {
     id: 'Stage 2',
     name: 'Travel Preferences',
-    formFields: ['departureDate', 'returnDate', 'departureHub', 'martianLodgings', 'Additional Notes' ]
+    formFields: ['departureDate', 'returnDate', 'departureHub', 'martianLodgings', 'Additional Notes']
   },
   {
     id: 'Stage 3',
@@ -34,6 +34,10 @@ const stages = [
     formFields: []
   },
 ]
+
+const launchPads = ['Pacific Spaceport Complex – Alaska', 'Tanegashima Space Center', 'Kool Keith Launch Complex - New York', 'Alcântara Launch Center - Brasil'];
+
+
 
 export default function MarsVisitorForm() {
   // Navigation State  
@@ -75,7 +79,7 @@ export default function MarsVisitorForm() {
     if (isValid) {
       setPreviousStage(currentStage)
       setCurrentStage(stage => stage + 1)
-    } 
+    }
   }
 
   // Render Component
@@ -142,7 +146,15 @@ export default function MarsVisitorForm() {
               type="date"
               className="px-2 py-2 rounded text-black" />
             {errors.departureDate && <p className="text-red-500">{errors.departureDate.message}</p>}
-
+            <select {...register("departureHub")} className="px-2 py-2 rounded text-black">
+              <option value="">Select a departure hub</option>
+              {launchPads.map((launchPad, index) => (
+                <option key={index} value={launchPad}>
+                  {launchPad}
+                </option>
+              ))}
+            </select>
+            {errors.departureHub && <p className="text-red-500">{errors.departureHub.message}</p>}
           </>
         )}
         {currentStage < 4 &&
