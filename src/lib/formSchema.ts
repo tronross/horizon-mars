@@ -34,4 +34,5 @@ export const formSchema = z.object({
   departureHub: z.string().min(1, "Departure hub is required"),
   martianLodgings: z.string().min(1, "Martian Lodgings is required"),
   additionalNotes: z.string(),
+  healthDeclaration: z.boolean(),
 });

@@ -43,7 +43,7 @@ const marsLodgings = ['Olympus Mons Biosphere', 'Valles Marineris Casino', 'Hell
 
 export default function MarsVisitorForm() {
   // Navigation State  
-  const [currentStage, setCurrentStage] = useState(0);
+  const [currentStage, setCurrentStage] = useState(2);
   const [previousStage, setPreviousStage] = useState(0);
 
   // React Hook Form Method destructuring
@@ -180,20 +180,33 @@ export default function MarsVisitorForm() {
               className="px-2 py-4 rounded text-black"  />
           </>
         )}
+        {currentStage === 2 && (
+           <>
+          <h2 className="text-2xl font-bold text-center">Health and Safety</h2>
+          <label htmlFor="Health Declaration">Health Declaration</label>
+          <p className="font-bold text-center">I hereby declare that I have been approved for spaceflight by a board-certified Doctor. I will provide the physicians pre-flight report upon confirmation of my trip.</p>
+          {/* <fieldset>
+            <span className="flex items-center">
+              <input type="radio" id="healthDeclaration" value="true" {...register("healthDeclaration")} >
+                Affirmative</input>
+            </span>
+          </fieldset> */}
+          </>
+          )}
         {currentStage < 4 &&
           <span className="inline-flex">
             <button
               type="button"
               disabled={(currentStage < 1)}
               onClick={back}
-              className="flex-grow bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
+              className="flex-grow bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
               Back
             </button>
 
             <button
               type="button"
               onClick={next}
-              className="flex-grow bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-r">
+              className="flex-grow bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded-r">
               Next
             </button>
           </span>
