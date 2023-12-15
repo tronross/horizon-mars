@@ -33,17 +33,16 @@ export default function MarsVisitorForm() {
         placeholder="First Name"
         className="px-2 py-2 rounded"
       />
-      {errors.firstName && <p>{errors.firstName.message}</p>}
+      {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
 
       <label htmlFor="lastName">Last Name</label>
       <input
-        id="lastName"
         {...register("lastName")}
         type="lastName"
         placeholder="Last Name"
         className="px-2 py-2 rounded"
       />
-      {errors.lastName && <p>{errors.lastName.message}</p>}
+      {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
 
       <label htmlFor="email">Email</label>
       <input
@@ -52,7 +51,7 @@ export default function MarsVisitorForm() {
         placeholder="Email"
         className="px-2 py-2 rounded"
       />
-      {errors.email && <p>{errors.email.message}</p>}
+      {errors.email && <p className="text-red-500">{errors.email.message}</p>}
 
       <button type="submit">Submit</button>
     </form>
