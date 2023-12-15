@@ -25,4 +25,9 @@ export const formSchema = z.object({
     .regex(dateRegex, 'Launch date must be in the format yyyy-mm-dd')
     .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date')
     .transform((val) => new Date(val)),
+    returnDate: z.string()
+    .regex(dateRegex, 'Launch date must be in the format yyyy-mm-dd')
+    .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date')
+    .transform((val) => new Date(val)),
+  departureHub: z.string().min(1, "Departure hub is required"),
 });
