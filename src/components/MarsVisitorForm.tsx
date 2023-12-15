@@ -37,6 +37,8 @@ const stages = [
 
 const launchPads = ['Pacific Spaceport Complex – Alaska', 'Tanegashima Space Center', 'Kool Keith Launch Complex - New York', 'Alcântara Launch Center - Brasil'];
 
+const marsLodgings = ['Olympus Mons Biosphere', 'Valles Marineris Casino', 'Hellas Planitia Edge Base', 'Elysium Planitia Spa'];
+
 
 
 export default function MarsVisitorForm() {
@@ -146,6 +148,7 @@ export default function MarsVisitorForm() {
               type="date"
               className="px-2 py-2 rounded text-black" />
             {errors.departureDate && <p className="text-red-500">{errors.departureDate.message}</p>}
+            <label htmlFor="departureHub">Launch Pad</label>
             <select {...register("departureHub")} className="px-2 py-2 rounded text-black">
               <option value="">Select a departure hub</option>
               {launchPads.map((launchPad, index) => (
@@ -155,6 +158,16 @@ export default function MarsVisitorForm() {
               ))}
             </select>
             {errors.departureHub && <p className="text-red-500">{errors.departureHub.message}</p>}
+            <label htmlFor="martianLodgings">Martian Lodgings</label>
+            <select {...register("martianLodgings")} className="px-2 py-2 rounded text-black">
+              <option value="">Select your Martian Lodgings</option>
+              {marsLodgings.map((marsLodging, index) => (
+                <option key={index} value={marsLodging}>
+                  {marsLodging}
+                </option>
+              ))}
+            </select>
+            {errors.martianLodgings && <p className="text-red-500">{errors.martianLodgings.message}</p>}
           </>
         )}
         {currentStage < 4 &&
