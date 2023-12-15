@@ -30,4 +30,6 @@ export const formSchema = z.object({
     .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date')
     .transform((val) => new Date(val)),
   departureHub: z.string().min(1, "Departure hub is required"),
+  martianLodgings: z.string().min(1, "Martian Lodgings is required"),
+  additionalNotes: z.string(),
 });
