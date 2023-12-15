@@ -17,6 +17,7 @@ export const formSchema = z.object({
   birthDate: z.string()
     .regex(dateRegex, 'Birth date must be in the format yyyy-mm-dd')
     .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date')
+    .refine(dateString => new Date(dateString) < new Date(), 'Birth date must be in the past')
     .transform((val) => new Date(val)),
   nationality: z.string().min(1, "Nationality is required"),
   email: z.string().email("Please enter a valid email address"),
@@ -24,6 +25,7 @@ export const formSchema = z.object({
   departureDate: z.string()
     .regex(dateRegex, 'Launch date must be in the format yyyy-mm-dd')
     .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date')
+    .refine(dateString => new Date(dateString) > new Date(), 'Launch date must be in the future')
     .transform((val) => new Date(val)),
     returnDate: z.string()
     .regex(dateRegex, 'Launch date must be in the format yyyy-mm-dd')
