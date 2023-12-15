@@ -21,8 +21,8 @@ export default function MarsVisitorForm() {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log('onSubmit called', data);
     reset();
   }
 
@@ -30,14 +30,13 @@ export default function MarsVisitorForm() {
 
   return (
     <section className="flex flex-col items-center justify-center max-h-screen py-12">
-      <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
         {currentStage === 0 && (
           <>
             <label htmlFor="firstName">First Name</label>
             <input
               {...register("firstName")}
               type="text"
-              placeholder="First Name"
               className="px-2 py-2 rounded text-black" />
             {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
   
@@ -45,7 +44,6 @@ export default function MarsVisitorForm() {
             <input
               {...register("lastName")}
               type="text"
-              placeholder="Last Name"
               className="px-2 py-2 rounded text-black"
             />
             {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
@@ -54,19 +52,33 @@ export default function MarsVisitorForm() {
             <input
               {...register("birthDate")}
               type="date"
-              placeholder="Year-Month-Day"
               className="px-2 py-2 rounded text-black"
             />
-            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+            {errors.birthDate && <p className="text-red-500">{errors.birthDate.message}</p>}
+
+            <label htmlFor="nationality">Nationality</label>
+            <input
+              {...register("nationality")}
+              type="text"
+              className="px-2 py-2 rounded text-black"
+            />
+            {errors.nationality && <p className="text-red-500">{errors.nationality.message}</p>}
           
             <label htmlFor="email">Email</label>
             <input
               {...register("email")}
               type="email"
-              placeholder="Email"
               className="px-2 py-2 rounded text-black"
             />
             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+
+            <label htmlFor="phoneNumber">Phone number</label>
+            <input
+              {...register("phoneNumber")}
+              type="tel"
+              className="px-2 py-2 rounded text-black"
+            />
+            {errors.phoneNumber && <p className="text-red-500">{errors.phoneNumber.message}</p>}
           </>
         )}
   
