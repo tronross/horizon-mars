@@ -9,9 +9,8 @@ export default function Home() {
     <main>
 
       <h1 className="text-4xl font-bold text-center">
-        Barlos Wurld!
+        Horizon Mars
       </h1> 
-      
       <MarsVisitorForm />
     </main>
   )
