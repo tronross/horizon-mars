@@ -16,6 +16,8 @@ export default function MarsVisitorForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
+    getValues
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
@@ -23,28 +25,32 @@ export default function MarsVisitorForm() {
   const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data);
 
   return (
-    <form className="flex flex-col gap-y-2" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="firstName">First Name</label>
       <input
-        id="firstName"
-        {...register("firstName", { required: true })}
-        type="text"
+        {...register("firstName")}
+        type="firstName"
+        placeholder="First Name"
+        className="px-2 py-2 rounded"
       />
       {errors.firstName && <p>{errors.firstName.message}</p>}
 
       <label htmlFor="lastName">Last Name</label>
       <input
         id="lastName"
-        {...register("lastName", { required: true })}
-        type="text"
+        {...register("lastName")}
+        type="lastName"
+        placeholder="Last Name"
+        className="px-2 py-2 rounded"
       />
       {errors.lastName && <p>{errors.lastName.message}</p>}
 
       <label htmlFor="email">Email</label>
       <input
-        id="email"
-        {...register("email", { required: true })}
-        type="text"
+        {...register("email")}
+        type="email"
+        placeholder="Email"
+        className="px-2 py-2 rounded"
       />
       {errors.email && <p>{errors.email.message}</p>}
 
