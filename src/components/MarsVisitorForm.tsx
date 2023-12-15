@@ -49,7 +49,16 @@ export default function MarsVisitorForm() {
               className="px-2 py-2 rounded text-black"
             />
             {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
-  
+
+            <label htmlFor="birthDate">Date of Birth</label>
+            <input
+              {...register("birthDate")}
+              type="date"
+              placeholder="Year-Month-Day"
+              className="px-2 py-2 rounded text-black"
+            />
+            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+          
             <label htmlFor="email">Email</label>
             <input
               {...register("email")}
