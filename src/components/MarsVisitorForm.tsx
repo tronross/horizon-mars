@@ -3,7 +3,7 @@
 /////////////////////////////
 
 import { useState } from "react";
-import { useForm, SubmitHandler, type FieldValues, FieldName } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -26,7 +26,7 @@ const stages = [
   {
     id: 'Stage 3',
     name: 'Health and Safety',
-    formFields: ['healthDeclaration']
+    formFields: ['healthDeclaration', 'emergencyContactName', 'emergencyContactPhone', 'emergencyContactEmail']
   },
   {
     id: 'Stage 4',
@@ -35,7 +35,7 @@ const stages = [
   },
 ]
 
-const launchPads = ['Pacific Spaceport Complex – Alaska', 'Tanegashima Space Center', 'Kool Keith Launch Complex - New York', 'Alcântara Launch Center - Brasil'];
+const launchPads = ['Pacific Spaceport Complex – Alaska', 'Tanegashima Space Center', 'Kool Keith Cosmodrome - New York', 'Alcântara Launch Center - Brasil'];
 
 const marsLodgings = ['Olympus Mons Biosphere', 'Valles Marineris Casino', 'Hellas Planitia Edge Base', 'Elysium Planitia Spa'];
 
@@ -186,17 +186,19 @@ export default function MarsVisitorForm() {
             <h2 className="text-2xl font-bold text-center">Health and Safety</h2>
             <label htmlFor="Health Declaration">Health Declaration</label>
             <p className="font-bold">I hereby declare that I have been approved for spaceflight by a board-certified Doctor. I will provide the physicians pre-flight report upon confirmation of my trip.</p>
-
-            <span className="flex-row align-end">
-              <label htmlFor="healthDeclaration">
-                <input 
-                  type="checkbox"
-                  className="px-2 py-2 rounded text-black"
-                  {...register("healthDeclaration")}
-                />  Affirmative</label>
-              {errors.healthDeclaration && errors.healthDeclaration.message && <p className="text-red-500">{errors.healthDeclaration.message}</p>}
-            </span>
-
+            <label htmlFor="healthDeclaration">
+              <input
+                type="checkbox"
+                className="px-2 py-2 rounded text-black"
+                {...register("healthDeclaration")}
+              />  Affirmative</label>
+            {errors.healthDeclaration && <p className="text-red-500">{errors.healthDeclaration.message}</p>}
+            <label htmlFor="emergencyContactName">Name of Emergency Contact</label>
+            <input
+              {...register("emergencyContactName")}
+              type="text"
+              className="px-2 py-2 rounded text-black" />
+            {errors.emergencyContactName && <p className="text-red-500">{errors.emergencyContactName.message}</p>}
           </>
         )}
         {currentStage < 4 &&
