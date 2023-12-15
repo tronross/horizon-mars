@@ -7,11 +7,11 @@ const phoneRegex = new RegExp(
 export const formSchema = z.object({
   firstName: z.string().min(1,"First name is required"),
   lastName: z.string().min(1,"Last name is required"),
-  birthDate: z.date({
+  birthDate: z.coerce.date({
     required_error: "Birth date is required",
     invalid_type_error: "Invalid date",
   }),
   nationality: z.string().min(1, "Nationality is required"),
   email: z.string().email("Please enter a valid email address"),
-  phone: z.string().regex(phoneRegex, "Please enter a valid phone number"),
+  phoneNumber: z.string().regex(phoneRegex, "Please enter a valid phone number"),
 });
