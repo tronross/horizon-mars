@@ -70,8 +70,12 @@ export default function MarsVisitorForm() {
 
   const next = async () => {
     const formFields = stages[currentStage].formFields;
-    const errorState = await trigger(formFields as FieldName[], { shouldFocus: true });
+    const isValid = await trigger(formFields as FieldName[], { shouldFocus: true });
 
+    if (isValid) {
+      setPreviousStage(currentStage)
+      setCurrentStage(stage => stage + 1)
+    } 
   }
 
   // Render Component
@@ -127,6 +131,11 @@ export default function MarsVisitorForm() {
               className="px-2 py-2 rounded text-black"
             />
             {errors.phoneNumber && <p className="text-red-500">{errors.phoneNumber.message}</p>}
+          </>
+        )}
+        {currentStage === 1 && (
+          <>
+            <h2 className="text-2xl font-bold text-center">Travel Preferences</h2>
           </>
         )}
         {currentStage < 4 &&
