@@ -11,6 +11,7 @@ import { formSchema } from "@/lib/formSchema";
 
 type Inputs = z.infer<typeof formSchema>;
 
+// Form Stages
 const stages = [
   {
     id: 'Stage 1',
@@ -39,6 +40,7 @@ export default function MarsVisitorForm() {
   const [currentStage, setCurrentStage] = useState(0);
   const [previousStage, setPreviousStage] = useState(0);
 
+  // React Hook Form Method destructuring
   const {
     register,
     handleSubmit,
@@ -55,8 +57,10 @@ export default function MarsVisitorForm() {
     reset();
   }
 
-  type FieldName = keyof Inputs
+  // Set FieldName type to be the keys of Inputs; allows for partial form validation via trigger() used in next() function, below.
+  type FieldName = keyof Inputs;
 
+  // Navigation Functions (onClick)
   const back = () => {
     if (currentStage > 0) {
       setPreviousStage(currentStage)
@@ -70,6 +74,7 @@ export default function MarsVisitorForm() {
 
   }
 
+  // Render Component
   return (
     <section className="flex flex-col items-center justify-center max-h-screen py-12">
       <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
@@ -142,12 +147,11 @@ export default function MarsVisitorForm() {
             </button>
           </span>
         }
-        {/* {currentStage === 2 && ( */}
-        <>
-
-          <button type="submit" className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded">Submit</button>
-        </>
-        {/* )} */}
+        {currentStage === 3 && (
+          <>
+            <button type="submit" className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded">Submit</button>
+          </>
+        )}
       </form>
     </section>
   );
