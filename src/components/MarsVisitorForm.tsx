@@ -1,3 +1,7 @@
+/////////////////////////////
+// MarsVisitorForm component
+/////////////////////////////
+
 import { useState } from "react";
 import { useForm, SubmitHandler, type FieldValues } from "react-hook-form";
 import { z } from "zod";
@@ -7,9 +11,32 @@ import { formSchema } from "@/lib/formSchema";
 
 type Inputs = z.infer<typeof formSchema>;
 
+const stages = [
+  {
+    id: 'Stage 1',
+    name: 'Personal Information',
+    fields: ['firstName', 'lastName', 'birthDate', 'nationality', 'email', 'phoneNumber']
+  },
+  {
+    id: 'Stage 2',
+    name: 'Travel Preferences',
+    fields: []
+  },
+  {
+    id: 'Stage 3',
+    name: 'Health and Safety',
+    fields: []
+  },
+  {
+    id: 'Stage 4',
+    name: 'Success Message',
+    fields: []
+  },
+]
+
 export default function MarsVisitorForm() {
-  // State  
-  const [ currentStage, setCurrentStage ] = useState(0);
+  // Navigation State  
+  const [currentStage, setCurrentStage] = useState(0);
 
   const {
     register,
@@ -26,7 +53,7 @@ export default function MarsVisitorForm() {
     reset();
   }
 
-  
+
 
   return (
     <section className="flex flex-col items-center justify-center max-h-screen py-12">
@@ -39,7 +66,7 @@ export default function MarsVisitorForm() {
               type="text"
               className="px-2 py-2 rounded text-black" />
             {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
-  
+
             <label htmlFor="lastName">Last Name</label>
             <input
               {...register("lastName")}
@@ -63,7 +90,7 @@ export default function MarsVisitorForm() {
               className="px-2 py-2 rounded text-black"
             />
             {errors.nationality && <p className="text-red-500">{errors.nationality.message}</p>}
-          
+
             <label htmlFor="email">Email</label>
             <input
               {...register("email")}
@@ -81,9 +108,24 @@ export default function MarsVisitorForm() {
             {errors.phoneNumber && <p className="text-red-500">{errors.phoneNumber.message}</p>}
           </>
         )}
-  
-        <button type="submit" className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded">Submit</button>
+        {currentStage < 2 &&
+          <div className="inline-flex">
+            <button className="bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
+              Prev
+            </button>
+            {currentStage < 1}
+            <button className="bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-r">
+              Next
+            </button>
+          </div>
+        }
+        {/* {currentStage === 2 && ( */}
+        <>
+
+          <button type="submit" className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded">Submit</button>
+        </>
+        {/* )} */}
       </form>
     </section>
   );
-        }
+}
