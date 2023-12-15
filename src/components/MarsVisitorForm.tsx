@@ -26,7 +26,7 @@ const stages = [
   {
     id: 'Stage 3',
     name: 'Health and Safety',
-    formFields: ['healthDeclaration', 'emergencyContactName', 'emergencyContactPhone', 'emergencyContactEmail']
+    formFields: ['healthDeclaration', 'emergencyContactName', 'emergencyContactPhone', 'emergencyContactEmail', 'medicalConditions']
   },
   {
     id: 'Stage 4',
@@ -157,7 +157,7 @@ export default function MarsVisitorForm() {
             {errors.returnDate && <p className="text-red-500">{errors.returnDate.message}</p>}
             <label htmlFor="departureHub">Launch Pad</label>
             <select {...register("departureHub")} className="px-2 py-2 rounded text-black">
-              <option value="">Select a departure hub</option>
+              <option value="">Select a Departure Hub</option>
               {launchPads.map((launchPad, index) => (
                 <option key={index} value={launchPad}>
                   {launchPad}
@@ -179,6 +179,8 @@ export default function MarsVisitorForm() {
             <textarea
               {...register("additionalNotes")}
               className="px-2 py-4 rounded text-black" />
+              {errors.additionalNotes && <p className="text-red-500">{errors.additionalNotes.message}</p>}
+
           </>
         )}
         {currentStage === 2 && (
@@ -199,6 +201,27 @@ export default function MarsVisitorForm() {
               type="text"
               className="px-2 py-2 rounded text-black" />
             {errors.emergencyContactName && <p className="text-red-500">{errors.emergencyContactName.message}</p>}
+            <label htmlFor="emergencyContactEmail">Emergency Contact Email</label>
+            <input
+              {...register("emergencyContactEmail")}
+              type="email"
+              className="px-2 py-2 rounded text-black"
+            />
+            {errors.emergencyContactEmail && <p className="text-red-500">{errors.emergencyContactEmail.message}</p>}
+
+            <label htmlFor="emergencyContactPhone">Emergency Contact Phone number</label>
+            <input
+              {...register("emergencyContactPhone")}
+              type="tel"
+              className="px-2 py-2 rounded text-black"
+            />
+            {errors.emergencyContactPhone && <p className="text-red-500">{errors.emergencyContactPhone.message}</p>}
+            <label htmlFor="medicalConditions">Medical Conditions</label>
+            <p>Please list any medical conditions you have, if any.</p>
+            <textarea
+              {...register("medicalConditions")}
+              className="px-2 py-4 rounded text-black" />
+               {errors.medicalConditions && <p className="text-red-500">{errors.medicalConditions.message}</p>}
           </>
         )}
         {currentStage < 4 &&
@@ -213,6 +236,7 @@ export default function MarsVisitorForm() {
 
             <button
               type="button"
+              disabled={(currentStage === 2)}
               onClick={next}
               className="flex-grow bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded-r">
               Next
