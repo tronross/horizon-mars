@@ -37,6 +37,7 @@ const stages = [
 export default function MarsVisitorForm() {
   // Navigation State  
   const [currentStage, setCurrentStage] = useState(0);
+  const [previousStage, setPreviousStage] = useState(0);
 
   const {
     register,
@@ -60,6 +61,7 @@ export default function MarsVisitorForm() {
       <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
         {currentStage === 0 && (
           <>
+            <h2 className="text-2xl font-bold text-center">Personal Information</h2>
             <label htmlFor="firstName">First Name</label>
             <input
               {...register("firstName")}
@@ -109,15 +111,15 @@ export default function MarsVisitorForm() {
           </>
         )}
         {currentStage < 2 &&
-          <div className="inline-flex">
-            <button className="bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
+          <span className="inline-flex">
+            <button className="flex-grow bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
               Prev
             </button>
             {currentStage < 1}
-            <button className="bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-r">
+            <button className="flex-grow bg-teal-500 hover:bg-teal-700 text-white text-white font-bold py-2 px-4 border border-teal-700 rounded-r">
               Next
             </button>
-          </div>
+          </span>
         }
         {/* {currentStage === 2 && ( */}
         <>
