@@ -59,7 +59,7 @@ export default function MarsVisitorForm() {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log('onSubmit called', data);
-  
+
     try {
       const response = await fetch('/api/marsVisitorForm', {
         method: 'POST',
@@ -68,23 +68,23 @@ export default function MarsVisitorForm() {
         },
         body: JSON.stringify(data)
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Validation errors:', errorData.errors);
         throw new Error('Network response was not ok');
       }
-  
+
       const responseData = await response.json();
       console.log('Response data:', responseData);
-  
+
       setCurrentStage(stage => stage + 1);
       reset();
     } catch (error) {
       console.error('Error:', error);
     }
   };
-  
+
   const onError: SubmitErrorHandler<Inputs> = (errors) => {
     console.log('form is invalid', errors);
   };
@@ -247,7 +247,15 @@ export default function MarsVisitorForm() {
             {errors.medicalConditions && <p className="text-red-500">{errors.medicalConditions.message}</p>}
           </>
         )}
-        {currentStage < 4 &&
+        {currentStage === 3 && (
+          <>
+            <h2 className="text-2xl font-bold text-center">Success!</h2>
+            <p className="text-center text-xl">Your form has been submitted.</p>
+            <p className="text-center text-xl">We'll be in touch soon for next steps.</p>
+
+          </>
+        )}
+        {currentStage < 3 &&
           <span className="inline-flex">
             <button
               type="button"
