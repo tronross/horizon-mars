@@ -30,17 +30,15 @@ const stages = [
   },
   {
     id: 'Stage 4',
-    name: 'Success Message',
-    formFields: []
-  },
+    name: 'Success Message'
+  }
 ]
 
-const launchPads = ['Pacific Spaceport Complex – Alaska', 'Tanegashima Space Center', 'Kool Keith Cosmodrome - New York', 'Alcântara Launch Center - Brasil'];
+const launchPads = ['Pacific Spaceport Complex – Alaska', 'Tanegashima Space Center - Japan', 'Kool Keith Cosmodrome - New York', 'Alcântara Launch Center - Brasil'];
 
 const marsLodgings = ['Olympus Mons Biosphere', 'Valles Marineris Casino', 'Hellas Planitia Edge Base', 'Elysium Planitia Spa'];
 
-
-
+// Component
 export default function MarsVisitorForm() {
   // Navigation State  
   const [currentStage, setCurrentStage] = useState(0);
@@ -52,7 +50,6 @@ export default function MarsVisitorForm() {
     formState: { errors, isSubmitting },
     reset,
     trigger,
-    getValues
   } = useForm<Inputs>({
     resolver: zodResolver(formSchema),
   });
