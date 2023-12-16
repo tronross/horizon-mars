@@ -3,7 +3,7 @@
 /////////////////////////////
 
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -44,7 +44,6 @@ const marsLodgings = ['Olympus Mons Biosphere', 'Valles Marineris Casino', 'Hell
 export default function MarsVisitorForm() {
   // Navigation State  
   const [currentStage, setCurrentStage] = useState(2);
-  const [previousStage, setPreviousStage] = useState(0);
 
   // React Hook Form Method destructuring
   const {
@@ -58,10 +57,37 @@ export default function MarsVisitorForm() {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log('onSubmit called', data);
-    reset();
-  }
+  
+    try {
+      const response = await fetch('/api/marsVisitorForm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Validation errors:', errorData.errors);
+        throw new Error('Network response was not ok');
+      }
+  
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+  
+      setCurrentStage(stage => stage + 1);
+      reset();
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+  const onError: SubmitErrorHandler<Inputs> = (errors) => {
+    console.log('form is invalid', errors);
+  };
 
   // Set FieldName type to be the keys of Inputs; allows for partial form validation via trigger() used in next() function, below.
   type FieldName = keyof Inputs;
@@ -69,18 +95,15 @@ export default function MarsVisitorForm() {
   // Navigation Functions (onClick)
   const back = () => {
     if (currentStage > 0) {
-      setPreviousStage(currentStage)
       setCurrentStage(stage => stage - 1)
     }
   }
 
   const next = async () => {
     const formFields = stages[currentStage].formFields;
-    console.log(formFields)
     const isValid = await trigger(formFields as FieldName[], { shouldFocus: true });
 
     if (isValid) {
-      setPreviousStage(currentStage)
       setCurrentStage(stage => stage + 1)
     }
   }
@@ -88,7 +111,7 @@ export default function MarsVisitorForm() {
   // Render Component
   return (
     <section className="flex flex-col items-center justify-center max-h-screen py-12">
-      <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
+      <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit, onError)}>
         {currentStage === 0 && (
           <>
             <h2 className="text-2xl font-bold text-center">Personal Information</h2>
@@ -179,7 +202,7 @@ export default function MarsVisitorForm() {
             <textarea
               {...register("additionalNotes")}
               className="px-2 py-4 rounded text-black" />
-              {errors.additionalNotes && <p className="text-red-500">{errors.additionalNotes.message}</p>}
+            {errors.additionalNotes && <p className="text-red-500">{errors.additionalNotes.message}</p>}
 
           </>
         )}
@@ -221,7 +244,7 @@ export default function MarsVisitorForm() {
             <textarea
               {...register("medicalConditions")}
               className="px-2 py-4 rounded text-black" />
-               {errors.medicalConditions && <p className="text-red-500">{errors.medicalConditions.message}</p>}
+            {errors.medicalConditions && <p className="text-red-500">{errors.medicalConditions.message}</p>}
           </>
         )}
         {currentStage < 4 &&
