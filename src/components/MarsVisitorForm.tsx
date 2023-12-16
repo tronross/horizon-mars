@@ -274,7 +274,7 @@ export default function MarsVisitorForm() {
           <>
             <h2 className="text-2xl font-bold text-center">Success!</h2>
             <p className="text-center text-xl">Your form has been submitted.</p>
-            <p className="text-center text-xl">We'll be in touch soon for next steps.</p>
+            <p className="text-center text-xl">We&apos;ll be in touch soon for next steps.</p>
 
           </>
         )}
