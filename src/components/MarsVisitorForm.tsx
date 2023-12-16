@@ -2,7 +2,7 @@
 // MarsVisitorForm component
 /////////////////////////////
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,7 +43,7 @@ const marsLodgings = ['Olympus Mons Biosphere', 'Valles Marineris Casino', 'Hell
 
 export default function MarsVisitorForm() {
   // Navigation State  
-  const [currentStage, setCurrentStage] = useState(2);
+  const [currentStage, setCurrentStage] = useState(0);
 
   // React Hook Form Method destructuring
   const {
@@ -57,8 +57,32 @@ export default function MarsVisitorForm() {
     resolver: zodResolver(formSchema),
   });
 
+  // useEffect to re-initialize form after successful submission and success message
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    if (currentStage === 3) {
+      timeoutId = setTimeout(() => {
+        setCurrentStage(0);
+      }, 8000);
+    }
+  
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [currentStage]);
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log('onSubmit called', data);
+
+    const result = formSchema.safeParse(data);
+
+    if (!result.success) {
+      // If validation fails, log the validation errors and return early
+      console.error('Validation errors:', result.error.errors);
+      return;
+    }
 
     try {
       const response = await fetch('/api/marsVisitorForm', {
@@ -66,7 +90,7 @@ export default function MarsVisitorForm() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(result.data)
       });
 
       if (!response.ok) {
