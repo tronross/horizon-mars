@@ -65,7 +65,7 @@ export default function MarsVisitorForm() {
         setCurrentStage(0);
       }, 8000);
     }
-  
+
     return () => {
       if (timeoutId) {
         clearTimeout(timeoutId);
@@ -134,8 +134,12 @@ export default function MarsVisitorForm() {
 
   // Render Component
   return (
-    <section className="flex flex-col items-center justify-center max-h-screen py-12">
-      <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit, onError)}>
+    // <section className="flex flex-col items-center justify-center max-h-screen py-12">
+    //   <form className="flex flex-col gap-y-2 max-w-screen-sm" onSubmit={handleSubmit(onSubmit, onError)}>
+    <section className="flex flex-col items-center justify-center py-12 px-4 sm:px-0">
+      <form className="flex flex-col gap-y-2 max-w-screen-sm mx-auto" onSubmit={handleSubmit(onSubmit, onError)}>
+
+
         {currentStage === 0 && (
           <>
             <h2 className="text-2xl font-bold text-center">Personal Information</h2>
