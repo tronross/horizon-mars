@@ -2,9 +2,10 @@
 // marsVisitorForm Handler
 ///////////////////////////
 
+import { NextApiRequest, NextApiResponse } from 'next';
 import { formSchema } from '../../../lib/formSchema';
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     // Validate the data, server-side
     const result = formSchema.safeParse(req.body);
