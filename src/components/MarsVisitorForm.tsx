@@ -21,7 +21,7 @@ const stages = [
   {
     id: 'Stage 2',
     name: 'Travel Preferences',
-    formFields: ['departureDate', 'returnDate', 'departureHub', 'martianLodgings', 'Additional Notes']
+    formFields: ['departureDate', 'returnDate', 'departureHub', 'martianLodgings', 'additionalNotes']
   },
   {
     id: 'Stage 3',
@@ -47,8 +47,11 @@ export default function MarsVisitorForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
+    watch,
+    setValue,
     reset,
+    setError,
     trigger,
   } = useForm<Inputs>({
     resolver: zodResolver(formSchema),
@@ -122,6 +125,28 @@ export default function MarsVisitorForm() {
 
   const next = async () => {
     const formFields = stages[currentStage].formFields;
+    const values = watch();
+
+    // If we're at the second stage (index 1), ensure departureDate and returnDate are filled in
+    if (currentStage === 1) {
+      if (!values.departureDate || !values.returnDate) {
+        return;
+      }
+
+      // Manually set the values of departureDate and returnDate before triggering the validation
+      setValue('departureDate', values.departureDate);
+      setValue('returnDate', values.returnDate);
+    }
+
+    // Additional validation: Ensure returnDate is after departureDate
+    if (new Date(values.returnDate) <= new Date(values.departureDate)) {
+      // Handle error: returnDate is not after departureDate
+      setError('returnDate', { type: 'manual', message: 'Return Date must be after the Launch Date' });
+      return;
+    }
+
+
+
     const isValid = await trigger(formFields as FieldName[], { shouldFocus: true });
 
     if (isValid) {
@@ -263,7 +288,7 @@ export default function MarsVisitorForm() {
             />
             {errors.emergencyContactPhone && <p className="text-red-500">{errors.emergencyContactPhone.message}</p>}
             <label htmlFor="medicalConditions">Medical Conditions</label>
-            <p>Please list any medical conditions you have, if any.</p>
+            <p>Please tell us about any medical conditions you have.</p>
             <textarea
               {...register("medicalConditions")}
               className="px-2 py-4 rounded text-black" />
