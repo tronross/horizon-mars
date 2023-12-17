@@ -215,6 +215,7 @@ export default function MarsVisitorForm() {
           <>
             <h2 className="text-2xl font-bold text-center">Travel Preferences</h2>
             <label htmlFor="departureDate">Launch Date</label>
+            <p>Please book at least 48hrs in advance of your flight.</p>
             <input
               {...register("departureDate")}
               type="date"
