@@ -303,7 +303,7 @@ export default function MarsVisitorForm() {
 
           </>
         )}
-        {currentStage < 3 &&
+        {currentStage < 2 &&
           <span className="inline-flex">
             <button
               type="button"
@@ -323,9 +323,17 @@ export default function MarsVisitorForm() {
           </span>
         }
         {currentStage === 2 && (
-          <>
-            <button type="submit" className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded">Submit</button>
-          </>
+
+          <span className="inline-flex">
+            <button
+              type="button"
+              disabled={(currentStage < 1)}
+              onClick={back}
+              className="flex-grow bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
+              Back
+            </button>
+            <button type="submit" className="flex-grow bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded">Submit</button>
+          </span>
         )}
       </form>
     </section>
