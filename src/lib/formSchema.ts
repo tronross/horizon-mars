@@ -23,7 +23,8 @@ export const formSchema = z.object({
     .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date')
     .refine(dateString => new Date(dateString) > new Date(), 'Launch Date must be in the future'),
   returnDate: z.string()
-    .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date'),
+    .refine(dateString => !isNaN(Date.parse(dateString)), 'Invalid date')
+    .refine(dateString => new Date(dateString) > new Date(), 'Launch Date must be in the future'),
   departureHub: z.string().min(1, 'Departure Hub is required'),
   martianLodgings: z.string().min(1, 'Martian Lodgings is required'),
   additionalNotes: z.string().optional(),
@@ -32,13 +33,4 @@ export const formSchema = z.object({
   emergencyContactEmail: z.string().email('Please enter a valid email address'),
   emergencyContactPhone: z.string().regex(phoneRegex, 'Please enter a valid phone number'),
   medicalConditions: z.string().optional(),
-}).refine( // Date comparison needs access to the whole object
-  ({ departureDate, returnDate }) => {
-    const departure = new Date(departureDate);
-    const returnD = new Date(returnDate);
-    const fourWeeksAfterDeparture = new Date(departure);
-    fourWeeksAfterDeparture.setDate(fourWeeksAfterDeparture.getDate() + 28);
-    return returnD >= fourWeeksAfterDeparture;
-  },
-  { message: 'Return Date must be at least 4 weeks after the Launch Date', path: ['returnDate'] }
-);
+});
