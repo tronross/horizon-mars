@@ -133,7 +133,7 @@ export default function MarsVisitorForm() {
         return;
       }
 
-      // Manually set the values of departureDate and returnDate before triggering the validation
+      // Manually set the values of departureDate and returnDate before triggering the validation 
       setValue('departureDate', values.departureDate);
       setValue('returnDate', values.returnDate);
     }
@@ -144,8 +144,6 @@ export default function MarsVisitorForm() {
       setError('returnDate', { type: 'manual', message: 'Return Date must be after the Launch Date' });
       return;
     }
-
-
 
     const isValid = await trigger(formFields as FieldName[], { shouldFocus: true });
 
