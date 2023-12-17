@@ -17,9 +17,13 @@ A very simple multi-stage form demo, Type safe, validated at each stage, on subm
 ### Getting Started
 
 - Clone the project from the GitHub repository <https://github.com/tronross/horizon-mars>
-
-- Install dependencies with `npm install`
-
+```bash
+cd horizon-mars
+``````
+Install the dependencies:
+```bash
+npm install
+```
 
 Fire up the development server:
 
