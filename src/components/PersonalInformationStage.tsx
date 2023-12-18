@@ -56,5 +56,5 @@ export default function PersonalInformationStage({ register, errors }: PersonalI
       />
       {errors.phoneNumber && <p className="text-red-500 max-w-screen-sm">{errors.phoneNumber.message}</p>}
     </>
-  )
+  );
 }

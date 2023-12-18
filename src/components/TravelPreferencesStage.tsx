@@ -55,5 +55,5 @@ export default function PersonalInformationStage({ register, errors, launchPads,
         className="px-2 py-4 rounded text-black" />
       {errors.additionalNotes && <p className="text-red-500">{errors.additionalNotes.message}</p>}
     </>
-  )
+  );
 }

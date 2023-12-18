@@ -50,5 +50,5 @@ export default function HealthAndSafetyStage({ register, errors }: HealthAndSafe
         className="px-2 py-4 rounded text-black" />
       {errors.medicalConditions && <p className="text-red-500">{errors.medicalConditions.message}</p>}
     </>
-  )
+  );
 }

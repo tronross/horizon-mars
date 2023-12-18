@@ -37,7 +37,7 @@ const stages = [
     name: 'Success Message',
     formFields: []
   }
-]
+];
 
 const launchPads = ['Pacific Spaceport Complex – Alaska', 'Tanegashima Space Center - Japan', 'Kool Keith Cosmodrome - New York', 'Alcântara Launch Center - Brasil'];
 
@@ -45,7 +45,7 @@ const marsLodgings = ['Olympus Mons Biosphere', 'Valles Marineris Casino', 'Hell
 
 // Component
 export default function MarsVisitorForm() {
-  // Navigation State  
+  // Navigation State
   const [currentStage, setCurrentStage] = useState(0);
 
   // React Hook Form Method destructuring
@@ -116,7 +116,7 @@ export default function MarsVisitorForm() {
 
   const onError: SubmitErrorHandler<Inputs> = (errors) => {
     // If validation fails, go to the first stage with an error and focus on the first field with an error (catches errors from both client-side and server-side validation)
-    const validationErrors = Object.keys(errors)
+    const validationErrors = Object.keys(errors);
     const firstStageWithError = stages.findIndex(stage => stage.formFields.some(field => validationErrors.includes(field)));
     setCurrentStage(firstStageWithError);
   };
@@ -127,9 +127,9 @@ export default function MarsVisitorForm() {
   // Navigation Functions (onClick)
   const back = () => {
     if (currentStage > 0) {
-      setCurrentStage(stage => stage - 1)
+      setCurrentStage(stage => stage - 1);
     }
-  }
+  };
 
   const next = async () => {
     const formFields = stages[currentStage].formFields;
@@ -141,7 +141,7 @@ export default function MarsVisitorForm() {
         return;
       }
 
-      // Manually set the values of departureDate and returnDate before triggering the validation 
+      // Manually set the values of departureDate and returnDate before triggering the validation
       setValue('departureDate', values.departureDate);
       setValue('returnDate', values.returnDate);
     }
@@ -156,9 +156,9 @@ export default function MarsVisitorForm() {
     const isValid = await trigger(formFields as FieldName[], { shouldFocus: true });
 
     if (isValid) {
-      setCurrentStage(stage => stage + 1)
+      setCurrentStage(stage => stage + 1);
     }
-  }
+  };
 
   // Render Component
   return (
