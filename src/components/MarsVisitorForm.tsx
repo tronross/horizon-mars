@@ -30,7 +30,8 @@ const stages = [
   },
   {
     id: 'Stage 4',
-    name: 'Success Message'
+    name: 'Success Message',
+    formFields: []
   }
 ]
 
@@ -41,7 +42,7 @@ const marsLodgings = ['Olympus Mons Biosphere', 'Valles Marineris Casino', 'Hell
 // Component
 export default function MarsVisitorForm() {
   // Navigation State  
-  const [currentStage, setCurrentStage] = useState(0);
+  const [currentStage, setCurrentStage] = useState(2);
 
   // React Hook Form Method destructuring
   const {
@@ -111,6 +112,12 @@ export default function MarsVisitorForm() {
 
   const onError: SubmitErrorHandler<Inputs> = (errors) => {
     console.log('form is invalid', errors);
+    const validationErrors = Object.keys(errors)
+    console.log('validationErrors:', validationErrors);
+
+    // If validation fails, go to the first stage with an error and focus on the first field with an error
+    const firstStageWithError = stages.findIndex(stage => stage.formFields.some(field => validationErrors.includes(field)));
+    setCurrentStage(firstStageWithError);
   };
 
   // Set FieldName type to be the keys of Inputs; allows for partial form validation via trigger() used in next() function, below.
