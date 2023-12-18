@@ -20,7 +20,6 @@ export default function PersonalInformationStage({ register, errors }: PersonalI
         type="text"
         className="px-2 py-2 rounded text-black w-full" />
       {errors.firstName && <p className="text-red-500 max-w-screen-sm">{errors.firstName.message}</p>}
-
       <label htmlFor="lastName">Last Name</label>
       <input
         {...register("lastName")}
@@ -28,7 +27,6 @@ export default function PersonalInformationStage({ register, errors }: PersonalI
         className="px-2 py-2 rounded text-black w-full"
       />
       {errors.lastName && <p className="text-red-500 max-w-screen-sm">{errors.lastName.message}</p>}
-
       <label htmlFor="birthDate">Date of Birth</label>
       <input
         {...register("birthDate")}
@@ -36,7 +34,6 @@ export default function PersonalInformationStage({ register, errors }: PersonalI
         className="px-2 py-2 rounded text-black w-full"
       />
       {errors.birthDate && <p className="text-red-500 max-w-screen-sm">{errors.birthDate.message}</p>}
-
       <label htmlFor="nationality">Nationality</label>
       <input
         {...register("nationality")}
@@ -44,7 +41,6 @@ export default function PersonalInformationStage({ register, errors }: PersonalI
         className="px-2 py-2 rounded text-black w-full"
       />
       {errors.nationality && <p className="text-red-500 max-w-screen-sm">{errors.nationality.message}</p>}
-
       <label htmlFor="email">Email</label>
       <input
         {...register("email")}
@@ -52,7 +48,6 @@ export default function PersonalInformationStage({ register, errors }: PersonalI
         className="px-2 py-2 rounded text-black w-full"
       />
       {errors.email && <p className="text-red-500 max-w-screen-sm">{errors.email.message}</p>}
-
       <label htmlFor="phoneNumber">Phone number</label>
       <input
         {...register("phoneNumber")}
@@ -60,5 +55,6 @@ export default function PersonalInformationStage({ register, errors }: PersonalI
         className="px-2 py-2 rounded text-black w-full"
       />
       {errors.phoneNumber && <p className="text-red-500 max-w-screen-sm">{errors.phoneNumber.message}</p>}
-    </>)
+    </>
+  )
 }
