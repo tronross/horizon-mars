@@ -7,8 +7,10 @@ import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { formSchema } from '@/lib/formSchema';
 import PersonalInformationStage from './PersonalInformationStage';
+import TravelPreferencesStage from './TravelPreferencesStage';
+
+import { formSchema } from '@/lib/formSchema';
 
 type Inputs = z.infer<typeof formSchema>;
 
@@ -162,14 +164,14 @@ export default function MarsVisitorForm() {
     <section className="form-container flex flex-col items-center justify-center py-12 px-4 sm:px-0">
       <form className="container flex flex-col gap-y-2 max-w-screen-sm mx-auto" onSubmit={handleSubmit(onSubmit, onError)}>
 
-{currentStage === 0 && (<PersonalInformationStage register={register} errors={errors} />)}
+        {currentStage === 0 && (<PersonalInformationStage register={register} errors={errors} />)}
 
-        {currentStage === 1 && (
-          <>
-            <h2 className="text-2xl font-bold text-center">Travel Preferences</h2>
-            <label htmlFor="departureDate">Launch Date</label>
-            <p>Please book at least 48hrs in advance of your flight.</p>
-            <input
+        {currentStage === 1 && (<TravelPreferencesStage register={register} errors={errors} launchPads={launchPads} marsLodgings={marsLodgings} />)}
+        {/*  // <>
+          //   <h2 className="text-2xl font-bold text-center">Travel Preferences</h2>
+          //   <label htmlFor="departureDate">Launch Date</label>
+          //   <p>Please book at least 48hrs in advance of your flight.</p>
+          //   <input
               {...register("departureDate")}
               type="date"
               className="px-2 py-2 rounded text-black" />
@@ -206,8 +208,8 @@ export default function MarsVisitorForm() {
               className="px-2 py-4 rounded text-black" />
             {errors.additionalNotes && <p className="text-red-500">{errors.additionalNotes.message}</p>}
 
-          </>
-        )}
+          </>} */}
+
         {currentStage === 2 && (
           <>
             <h2 className="text-2xl font-bold text-center">Health and Safety</h2>
