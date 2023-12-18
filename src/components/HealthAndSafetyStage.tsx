@@ -13,7 +13,7 @@ interface HealthAndSafetyStageProps {
 export default function HealthAndSafetyStage({ register, errors }: HealthAndSafetyStageProps) {
   return (
     <>
-      <h2 className="text-2xl font-bold text-center">Health and Safety</h2>
+      <h3 className="text-2xl font-bold text-center">Health and Safety</h3>
       <label htmlFor="Health Declaration">Health Declaration</label>
       <p className="font-bold">I hereby declare that I have been approved for spaceflight by a board-certified Doctor. I will provide the physicians pre-flight report upon confirmation of my trip.</p>
       <label htmlFor="healthDeclaration">

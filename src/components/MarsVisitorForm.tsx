@@ -164,7 +164,7 @@ export default function MarsVisitorForm() {
   return (
     <section className="form-container flex flex-col items-center justify-center py-12 px-4 sm:px-0">
       <form className="container flex flex-col gap-y-2 max-w-screen-sm mx-auto" onSubmit={handleSubmit(onSubmit, onError)}>
-        <h1 className="text-xl text-center">Mars Visitor Application</h1>
+        <h2 className="text-xl text-center">Mars Visitor Application</h2>
         {currentStage === 0 && (<PersonalInformationStage register={register} errors={errors} />)}
 
         {currentStage === 1 && (<TravelPreferencesStage register={register} errors={errors} launchPads={launchPads} marsLodgings={marsLodgings} />)}

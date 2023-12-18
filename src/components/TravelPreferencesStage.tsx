@@ -15,7 +15,7 @@ interface PersonalInformationStageProps {
 export default function PersonalInformationStage({ register, errors, launchPads, marsLodgings }: PersonalInformationStageProps) {
   return (
     <>
-      <h2 className="text-2xl font-bold text-center">Travel Preferences</h2>
+      <h3 className="text-2xl font-bold text-center">Travel Preferences</h3>
       <label htmlFor="departureDate">Launch Date</label>
       <p>Please book at least 48hrs in advance of your flight.</p>
       <input

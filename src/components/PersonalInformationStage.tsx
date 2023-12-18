@@ -13,7 +13,7 @@ interface PersonalInformationStageProps {
 export default function PersonalInformationStage({ register, errors }: PersonalInformationStageProps) {
   return (
     <>
-      <h2 className="text-2xl font-bold text-center max-w-screen-sm">Personal Information</h2>
+      <h3 className="text-2xl font-bold text-center max-w-screen-sm">Personal Information</h3>
       <label className="max-w-screen-sm" htmlFor="firstName">First Name</label>
       <input
         {...register("firstName")}
