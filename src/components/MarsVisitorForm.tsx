@@ -7,6 +7,7 @@ import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import HealthAndSafetyStage from './HealthAndSafetyStage';
 import PersonalInformationStage from './PersonalInformationStage';
 import TravelPreferencesStage from './TravelPreferencesStage';
 
@@ -163,52 +164,13 @@ export default function MarsVisitorForm() {
   return (
     <section className="form-container flex flex-col items-center justify-center py-12 px-4 sm:px-0">
       <form className="container flex flex-col gap-y-2 max-w-screen-sm mx-auto" onSubmit={handleSubmit(onSubmit, onError)}>
-
+        <h1 className="text-xl text-center">Mars Visitor Application</h1>
         {currentStage === 0 && (<PersonalInformationStage register={register} errors={errors} />)}
 
         {currentStage === 1 && (<TravelPreferencesStage register={register} errors={errors} launchPads={launchPads} marsLodgings={marsLodgings} />)}
-        
-        {currentStage === 2 && (
-          <>
-            <h2 className="text-2xl font-bold text-center">Health and Safety</h2>
-            <label htmlFor="Health Declaration">Health Declaration</label>
-            <p className="font-bold">I hereby declare that I have been approved for spaceflight by a board-certified Doctor. I will provide the physicians pre-flight report upon confirmation of my trip.</p>
-            <label htmlFor="healthDeclaration">
-              <input
-                type="checkbox"
-                className="px-2 py-2 rounded text-black"
-                {...register("healthDeclaration")}
-              />  Affirmative</label>
-            {errors.healthDeclaration && <p className="text-red-500">{errors.healthDeclaration.message}</p>}
-            <label htmlFor="emergencyContactName">Name of Emergency Contact</label>
-            <input
-              {...register("emergencyContactName")}
-              type="text"
-              className="px-2 py-2 rounded text-black" />
-            {errors.emergencyContactName && <p className="text-red-500">{errors.emergencyContactName.message}</p>}
-            <label htmlFor="emergencyContactEmail">Emergency Contact Email</label>
-            <input
-              {...register("emergencyContactEmail")}
-              type="email"
-              className="px-2 py-2 rounded text-black"
-            />
-            {errors.emergencyContactEmail && <p className="text-red-500">{errors.emergencyContactEmail.message}</p>}
 
-            <label htmlFor="emergencyContactPhone">Emergency Contact Phone number</label>
-            <input
-              {...register("emergencyContactPhone")}
-              type="tel"
-              className="px-2 py-2 rounded text-black"
-            />
-            {errors.emergencyContactPhone && <p className="text-red-500">{errors.emergencyContactPhone.message}</p>}
-            <label htmlFor="medicalConditions">Medical Conditions</label>
-            <p>Please tell us about any medical conditions you have.</p>
-            <textarea
-              {...register("medicalConditions")}
-              className="px-2 py-4 rounded text-black" />
-            {errors.medicalConditions && <p className="text-red-500">{errors.medicalConditions.message}</p>}
-          </>
-        )}
+        {currentStage === 2 && (<HealthAndSafetyStage register={register} errors={errors} />)}
+
         {currentStage === 3 && (
           <>
             <h2 className="text-2xl font-bold text-center">Success!</h2>
@@ -226,7 +188,6 @@ export default function MarsVisitorForm() {
               className="flex-grow bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded-l">
               Back
             </button>
-
             <button
               type="button"
               disabled={(currentStage === 2)}
@@ -237,7 +198,6 @@ export default function MarsVisitorForm() {
           </span>
         }
         {currentStage === 2 && (
-
           <span className="inline-flex">
             <button
               type="button"
