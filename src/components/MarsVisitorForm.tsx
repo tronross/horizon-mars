@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { formSchema } from '@/lib/formSchema';
+import PersonalInformationStage from './PersonalInformationStage';
 
 type Inputs = z.infer<typeof formSchema>;
 
@@ -161,7 +162,8 @@ export default function MarsVisitorForm() {
     <section className="form-container flex flex-col items-center justify-center py-12 px-4 sm:px-0">
       <form className="container flex flex-col gap-y-2 max-w-screen-sm mx-auto" onSubmit={handleSubmit(onSubmit, onError)}>
 
-
+{currentStage === 0 && (<PersonalInformationStage register={register} errors={errors} />)}
+{/* 
         {currentStage === 0 && (
           <>
             <h2 className="text-2xl font-bold text-center max-w-screen-sm">Personal Information</h2>
@@ -212,7 +214,7 @@ export default function MarsVisitorForm() {
             />
             {errors.phoneNumber && <p className="text-red-500 max-w-screen-sm">{errors.phoneNumber.message}</p>}
           </>
-        )}
+        )} */}
         {currentStage === 1 && (
           <>
             <h2 className="text-2xl font-bold text-center">Travel Preferences</h2>
