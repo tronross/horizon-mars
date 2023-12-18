@@ -1,5 +1,5 @@
 import React from 'react';
-import { UseFormRegister, FieldErrors, FieldValues } from 'react-hook-form';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import { z } from 'zod';
 
 import { formSchema } from '@/lib/formSchema';
@@ -10,7 +10,7 @@ interface PersonalInformationStageProps {
   errors: FieldErrors<Inputs>;
 }
 
-export default function PersonalInformationStage( { register, errors }: PersonalInformationStageProps) {
+export default function PersonalInformationStage({ register, errors }: PersonalInformationStageProps) {
   return (
     <>
       <h2 className="text-2xl font-bold text-center max-w-screen-sm">Personal Information</h2>
