@@ -1,11 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-import { formSchema } from '../lib/formSchema';
-type Inputs = z.infer<typeof formSchema>;
 
 import PersonalInformationStage from './PersonalInformationStage';
 
@@ -13,13 +8,20 @@ import PersonalInformationStage from './PersonalInformationStage';
 const mockRegister = jest.fn();
 
 describe('PersonalInformationStage', () => {
-  const errors = {};
+  const mockErrors = {
+    firstName: { message: 'First name error' },
+    lastName: { message: 'Last name error' },
+    birthDate: { message: 'Birth date error' },
+    nationality: { message: 'Nationality error' },
+    email: { message: 'Email error' },
+    phoneNumber: { message: 'Phone number error' },
+  };
 
   beforeEach(() => {
     render(
       <PersonalInformationStage
         register={mockRegister}
-        errors={errors}
+        errors={mockErrors}
       />
     );
   });
@@ -50,5 +52,51 @@ describe('PersonalInformationStage', () => {
 
   it('renders the phone number input', () => {
     expect(screen.getByLabelText('Phone number')).toBeInTheDocument();
+  });
+  it('calls register with the correct arguments for first name', () => {
+    expect(mockRegister).toHaveBeenCalledWith('firstName');
+  });
+  
+  it('calls register with the correct arguments for last name', () => {
+    expect(mockRegister).toHaveBeenCalledWith('lastName');
+  });
+  
+  it('calls register with the correct arguments for date of birth', () => {
+    expect(mockRegister).toHaveBeenCalledWith('birthDate');
+  });
+  
+  it('calls register with the correct arguments for nationality', () => {
+    expect(mockRegister).toHaveBeenCalledWith('nationality');
+  });
+  
+  it('calls register with the correct arguments for email', () => {
+    expect(mockRegister).toHaveBeenCalledWith('email');
+  });
+  
+  it('calls register with the correct arguments for phone number', () => {
+    expect(mockRegister).toHaveBeenCalledWith('phoneNumber');
+  });
+  it('displays the first name error', () => {
+    expect(screen.getByText('First name error')).toBeInTheDocument();
+  });
+
+  it('displays the last name error', () => {
+    expect(screen.getByText('Last name error')).toBeInTheDocument();
+  });
+
+  it('displays the birth date error', () => {
+    expect(screen.getByText('Birth date error')).toBeInTheDocument();
+  });
+
+  it('displays the nationality error', () => {
+    expect(screen.getByText('Nationality error')).toBeInTheDocument();
+  });
+
+  it('displays the email error', () => {
+    expect(screen.getByText('Email error')).toBeInTheDocument();
+  });
+
+  it('displays the phone number error', () => {
+    expect(screen.getByText('Phone number error')).toBeInTheDocument();
   });
 });
