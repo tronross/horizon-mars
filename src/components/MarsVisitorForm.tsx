@@ -2,7 +2,7 @@
 // MarsVisitorForm component
 /////////////////////////////
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,7 +11,7 @@ import HealthAndSafetyStage from './HealthAndSafetyStage';
 import PersonalInformationStage from './PersonalInformationStage';
 import TravelPreferencesStage from './TravelPreferencesStage';
 
-import { formSchema } from '@/lib/formSchema';
+import { formSchema } from '../lib/formSchema';
 
 type Inputs = z.infer<typeof formSchema>;
 
