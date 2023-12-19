@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useForm } from 'react-hook-form';
@@ -56,6 +56,4 @@ describe('HealthAndSafetyStage', () => {
     expect(screen.getByText('Emergency contact phone error')).toBeInTheDocument();
     expect(screen.getByText('Medical conditions error')).toBeInTheDocument();
   });
-
-  screen.debug();
 });
