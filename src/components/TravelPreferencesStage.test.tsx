@@ -69,11 +69,11 @@ describe('TravelPreferencesStage', () => {
 
   it('displays error messages when errors are present', () => {
     const errors = {
-      departureDate: { message: 'Departure date error' },
-      returnDate: { message: 'Return date error' },
-      departureHub: { message: 'Departure hub error' },
-      martianLodgings: { message: 'Martian lodgings error' },
-      additionalNotes: { message: 'Additional notes error' },
+      departureDate: { type: 'validate', message: 'Departure date error' },
+      returnDate: { type: 'validate', message: 'Return date error' },
+      departureHub: { type: 'validate', message: 'Departure hub error' },
+      martianLodgings: { type: 'validate', message: 'Martian lodgings error' },
+      additionalNotes: { type: 'validate', message: 'Additional notes error' },
     };
 
     render(
