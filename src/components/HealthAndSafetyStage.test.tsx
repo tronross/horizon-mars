@@ -10,9 +10,9 @@ type Inputs = z.infer<typeof formSchema>;
 import HealthAndSafetyStage from './HealthAndSafetyStage';
 
 // Define mock props
-const mockRegister = jest.fn ();
+const mockRegister = jest.fn();
 
-describe ('HealthAndSafetyStage', () => {
+describe('HealthAndSafetyStage', () => {
   let register: ReturnType<typeof useForm>['register'];
   let errors: Partial<Record<keyof Inputs, any>>;
   const mockErrors: Partial<Record<keyof Inputs, any>> = {
@@ -23,13 +23,13 @@ describe ('HealthAndSafetyStage', () => {
     medicalConditions: { message: 'Medical conditions error' },
   };
 
-  beforeEach (() => {
-    register = jest.fn ();
+  beforeEach(() => {
+    register = jest.fn();
     errors = {};
   });
 
-  it ('renders the HealthAndSafetyStage component', () => {
-    render (<HealthAndSafetyStage errors={mockErrors} register={mockRegister} />);
+  it('renders the HealthAndSafetyStage component', () => {
+    render(<HealthAndSafetyStage errors={mockErrors} register={mockRegister} />);
 
     expect(screen.getByText('Health and Safety')).toBeInTheDocument();
     expect(screen.getByLabelText('Affirmative')).toBeInTheDocument();
@@ -48,7 +48,14 @@ describe ('HealthAndSafetyStage', () => {
       medicalConditions: { message: 'Medical conditions error' },
     };
 
-    screen.debug ();
-  }
-  );
-} );
+    render(<HealthAndSafetyStage register={mockRegister} errors={errors} />);
+
+    expect(screen.getByText('Health declaration error')).toBeInTheDocument();
+    expect(screen.getByText('Emergency contact name error')).toBeInTheDocument();
+    expect(screen.getByText('Emergency contact email error')).toBeInTheDocument();
+    expect(screen.getByText('Emergency contact phone error')).toBeInTheDocument();
+    expect(screen.getByText('Medical conditions error')).toBeInTheDocument();
+  });
+
+  screen.debug();
+});
