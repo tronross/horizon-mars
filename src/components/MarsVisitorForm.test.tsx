@@ -5,9 +5,6 @@ import { act } from 'react-dom/test-utils';
 
 import MarsVisitorForm from './MarsVisitorForm';
 
-import nodeFetch from 'cross-fetch';
-(global.fetch as any) = nodeFetch;
-
 describe('MarsVisitorForm', () => {
   it('renders the Personal Information stage initially', () => {
     const { getByText } = render(<MarsVisitorForm />);
