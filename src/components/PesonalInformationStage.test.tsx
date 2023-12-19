@@ -9,12 +9,12 @@ const mockRegister = jest.fn();
 
 describe('PersonalInformationStage', () => {
   const mockErrors = {
-    firstName: { message: 'First name error' },
-    lastName: { message: 'Last name error' },
-    birthDate: { message: 'Birth date error' },
-    nationality: { message: 'Nationality error' },
-    email: { message: 'Email error' },
-    phoneNumber: { message: 'Phone number error' },
+    firstName: { type: 'required', message: 'First name error' },
+    lastName: { type: 'required', message: 'Last name error' },
+    birthDate: { type: 'required', message: 'Birth date error' },
+    nationality: { type: 'required', message: 'Nationality error' },
+    email: { type: 'required', message: 'Email error' },
+    phoneNumber: { type: 'required', message: 'Phone number error' },
   };
 
   beforeEach(() => {
