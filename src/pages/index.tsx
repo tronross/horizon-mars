@@ -1,5 +1,5 @@
-import React from 'react'
-import MarsVisitorForm from '@/components/MarsVisitorForm'
+import React from 'react';
+import MarsVisitorForm from '@/components/MarsVisitorForm';
 
 export default function Home() {
   return (
@@ -9,5 +9,5 @@ export default function Home() {
       </h1>
       <MarsVisitorForm />
     </main>
-  )
+  );
 }

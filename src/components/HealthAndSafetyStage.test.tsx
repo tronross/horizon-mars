@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { useForm } from 'react-hook-form';
+import { FieldError } from 'react-hook-form';
 import { z } from 'zod';
 
 import { formSchema } from '../lib/formSchema';
@@ -12,19 +12,19 @@ import HealthAndSafetyStage from './HealthAndSafetyStage';
 // Define mock props
 const mockRegister = jest.fn();
 
+type ErrorRecord = Partial<Record<keyof Inputs, FieldError>>;
+
 describe('HealthAndSafetyStage', () => {
-  let register: ReturnType<typeof useForm>['register'];
-  let errors: Partial<Record<keyof Inputs, any>>;
-  const mockErrors: Partial<Record<keyof Inputs, any>> = {
-    healthDeclaration: { message: 'Health declaration error' },
-    emergencyContactName: { message: 'Emergency contact name error' },
-    emergencyContactEmail: { message: 'Emergency contact email error' },
-    emergencyContactPhone: { message: 'Emergency contact phone error' },
-    medicalConditions: { message: 'Medical conditions error' },
+  let errors: ErrorRecord;
+  const mockErrors: ErrorRecord = {
+    healthDeclaration: { type: 'required', message: 'Health declaration error' },
+    emergencyContactName: { type: 'required', message: 'Emergency contact name error' },
+    emergencyContactEmail: { type: 'required', message: 'Emergency contact email error' },
+    emergencyContactPhone: { type: 'required', message: 'Emergency contact phone error' },
+    medicalConditions: { type: 'required', message: 'Medical conditions error' },
   };
 
   beforeEach(() => {
-    register = jest.fn();
     errors = {};
   });
 
@@ -41,13 +41,13 @@ describe('HealthAndSafetyStage', () => {
 
   it('displays error messages when errors are present', () => {
     errors = {
-      healthDeclaration: { message: 'Health declaration error' },
-      emergencyContactName: { message: 'Emergency contact name error' },
-      emergencyContactEmail: { message: 'Emergency contact email error' },
-      emergencyContactPhone: { message: 'Emergency contact phone error' },
-      medicalConditions: { message: 'Medical conditions error' },
+      healthDeclaration: { type: 'required', message: 'Health declaration error' },
+      emergencyContactName: { type: 'required', message: 'Emergency contact name error' },
+      emergencyContactEmail: { type: 'required', message: 'Emergency contact email error' },
+      emergencyContactPhone: { type: 'required', message: 'Emergency contact phone error' },
+      medicalConditions: { type: 'required', message: 'Medical conditions error' },
     };
-
+    
     render(<HealthAndSafetyStage register={mockRegister} errors={errors} />);
 
     expect(screen.getByText('Health declaration error')).toBeInTheDocument();
