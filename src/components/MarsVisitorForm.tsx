@@ -79,7 +79,6 @@ export default function MarsVisitorForm() {
   }, [currentStage]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    // console.log('onSubmit called', data);
 
     const result = formSchema.safeParse(data);
 
@@ -105,7 +104,6 @@ export default function MarsVisitorForm() {
       }
 
       const responseData = await response.json();
-      // console.log('Response data:', responseData);
 
       setCurrentStage(stage => stage + 1);
       reset();
