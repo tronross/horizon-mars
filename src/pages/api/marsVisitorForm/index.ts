@@ -16,8 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Code to save the data to a database would go here,
-    // but we're just going to log it to the console as proof of concept
-    console.log('Validated data:', result.data);
+    // but we could just log it to the console as proof of concept
+    // console.log('Validated data:', result.data);
     res.status(200).json({ message: 'ok' });
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });
